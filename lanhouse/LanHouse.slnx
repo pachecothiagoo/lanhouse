@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="Clientes/Clientes/Clientes.csproj" />
-  <Project Path="Computadores/Computadores/Computadores.csproj" />
-  <Project Path="Reservas/Reservas/Reservas.csproj" />
-  <Project Path="Cobranca/Cobranca/Cobranca.csproj" />
-</Solution>
