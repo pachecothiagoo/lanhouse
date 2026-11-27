@@ -1,0 +1,54 @@
+# Blueprint do Render: cria os 4 microsserviços de uma vez a partir deste repositório.
+# Render > New > Blueprint > selecionar este repositório.
+services:
+  - type: web
+    name: lanhouse-cobranca
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Cobranca/Dockerfile
+    dockerContext: ./Cobranca
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+
+  - type: web
+    name: lanhouse-computadores
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Computadores/Dockerfile
+    dockerContext: ./Computadores
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+
+  - type: web
+    name: lanhouse-clientes
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Clientes/Dockerfile
+    dockerContext: ./Clientes
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: Servicos__Cobranca
+        value: https://lanhouse-cobranca.onrender.com
+
+  - type: web
+    name: lanhouse-reservas
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Reservas/Dockerfile
+    dockerContext: ./Reservas
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: Servicos__Clientes
+        value: https://lanhouse-clientes.onrender.com
+      - key: Servicos__Computadores
+        value: https://lanhouse-computadores.onrender.com
+      - key: Servicos__Cobranca
+        value: https://lanhouse-cobranca.onrender.com
